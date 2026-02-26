@@ -1,0 +1,102 @@
+version: 2
+updates:
+  # -------------------------
+  # Personal: Eric Todd Sawywr
+  # Applies to personal projects in the repo root
+  # -------------------------
+  - package-ecosystem: "npm"
+    directory: "/" 
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "automerge:eligible"
+    assignees:
+      - "eric-github-username" # replace with Eric's GitHub username
+    commit-message:
+      prefix: "chore(deps)"
+    versioning-strategy: "increase"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "ci"
+      - "dependencies"
+    assignees:
+      - "eric-github-username"
+
+  # -------------------------
+  # Organization: E Co Solutions
+  # Frontend, backend, infra, and shared docker images
+  # -------------------------
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "frontend"
+    assignees:
+      - "team-lead-frontend" # replace with actual GitHub username or team slug
+    ignore:
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+    open-pull-requests-limit: 6
+    labels:
+      - "dependencies"
+      - "backend"
+    assignees:
+      - "team-lead-backend"
+    allow:
+      - dependency-type: "direct"
+
+  - package-ecosystem: "terraform"
+    directory: "/infrastructure"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+    labels:
+      - "infra"
+      - "dependencies"
+    assignees:
+      - "infra-team"
+    security-updates-only: false
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    open-pull-requests-limit: 8
+    labels:
+      - "docker"
+      - "dependencies"
+    assignees:
+      - "devops-team"
+
+  # -------------------------
+  # Optional: global safety and automerge rules (example)
+  # -------------------------
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    assignees:
+      - "security-team"
+    security-updates-only: true
